@@ -10,6 +10,19 @@ export const getRunSpeed = (elapsedTime: number) => {
   return Math.min(54, 20 + (level - 1) * 4.2);
 };
 
+const highScoreStorageKey = 'cyber-octagon-run-high-score';
+
+const loadHighScore = () => {
+  if (typeof window === 'undefined') return 0;
+  const savedScore = window.localStorage.getItem(highScoreStorageKey);
+  return savedScore ? Number(savedScore) || 0 : 0;
+};
+
+const saveHighScore = (score: number) => {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(highScoreStorageKey, String(Math.floor(score)));
+};
+
 interface GameStore {
   gameState: GameState;
   setGameState: (state: GameState) => void;
@@ -35,7 +48,15 @@ interface GameStore {
 
 export const useGameStore = create<GameStore>((set, get) => ({
   gameState: 'START',
-  setGameState: (gameState) => set({ gameState }),
+  setGameState: (gameState) => set((state) => {
+    if (gameState === 'GAME_OVER' && state.score > state.highScore) {
+      const highScore = Math.floor(state.score);
+      saveHighScore(highScore);
+      return { gameState, highScore };
+    }
+
+    return { gameState };
+  }),
   togglePause: () => set((state) => {
     if (state.gameState === 'PLAYING') return { gameState: 'PAUSED' as GameState };
     if (state.gameState === 'PAUSED') return { gameState: 'PLAYING' as GameState };
@@ -50,8 +71,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
   getSpeed: () => getRunSpeed(get().elapsedTime),
   coins: 0,
   addCoins: (amount) => set((state) => ({ coins: state.coins + amount })),
-  highScore: 0,
-  setHighScore: (highScore) => set({ highScore }),
+  highScore: loadHighScore(),
+  setHighScore: (highScore) => set(() => {
+    saveHighScore(highScore);
+    return { highScore };
+  }),
   selectedSkin: 'default',
   setSelectedSkin: (selectedSkin) => set({ selectedSkin }),
   playerLane: 0,

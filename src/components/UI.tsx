@@ -1,6 +1,6 @@
 ﻿import { motion, AnimatePresence } from 'motion/react';
 import { useGameStore } from '../store/useGameStore';
-import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer } from 'lucide-react';
+import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer, Crown } from 'lucide-react';
 import { useState } from 'react';
 
 export default function UI() {
@@ -15,10 +15,19 @@ export default function UI() {
 
   return (
     <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center font-mono ui-container shadow-none ui-vignette">
+      {gameState === 'START' && (
+        <div className="absolute top-8 left-8 pointer-events-none flex items-center gap-2 text-yellow-200 text-sm sm:text-base font-bold tracking-[0.18em] hud-panel">
+          <Crown size={18} /> HIGH SCORE {Math.floor(highScore)}
+        </div>
+      )}
+
       {(gameState === 'PLAYING' || gameState === 'PAUSED') && (
         <div className="absolute top-8 left-8 pointer-events-none flex flex-col gap-2 text-left hud-panel">
           <div className="text-cyan-200 text-2xl font-bold italic tracking-wider drop-shadow-[0_0_12px_rgba(34,211,238,0.95)]">
             SCORE: {Math.floor(score)}
+          </div>
+          <div className="flex items-center gap-2 text-yellow-200 text-sm font-bold tracking-[0.18em]">
+            <Crown size={16} /> BEST {Math.floor(highScore)}
           </div>
           <div className="flex items-center gap-2 text-fuchsia-200 text-sm font-bold tracking-[0.18em]">
             <Gauge size={16} /> SPEED {getSpeed().toFixed(0)}
@@ -118,7 +127,9 @@ export default function UI() {
           >
             <h2 className="text-3xl sm:text-5xl font-black text-red-500 mb-2 tracking-widest text-center">MISSION FAILED</h2>
             <div className="text-xl sm:text-2xl text-white">FINAL SCORE: {Math.floor(score)}</div>
-            <div className="text-base sm:text-lg text-cyan-400 mb-6 sm:mb-8 italic font-bold">HIGH SCORE: {Math.floor(highScore)}</div>
+            <div className="flex items-center gap-2 text-base sm:text-lg text-yellow-200 mb-6 sm:mb-8 italic font-bold">
+              <Crown size={20} /> HIGH SCORE: {Math.floor(highScore)}
+            </div>
 
             <button
               onClick={startRun}
