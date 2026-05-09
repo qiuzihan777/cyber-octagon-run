@@ -25,6 +25,8 @@ body {
   font-family: var(--font-sans);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
+  touch-action: none;
+  user-select: none;
 }
 
 #root {
@@ -301,4 +303,78 @@ body {
     0 0 12px rgba(255, 255, 255, 0.46),
     0 0 34px rgba(34, 211, 238, 0.42),
     0 0 52px rgba(236, 72, 153, 0.28);
+}
+
+@media (max-width: 640px) {
+  .hud-panel {
+    top: 14px !important;
+    left: 12px !important;
+    padding: 10px 12px;
+    transform: scale(0.86);
+    transform-origin: top left;
+  }
+
+  .cover-panel {
+    width: calc(100vw - 24px);
+    max-height: calc(100vh - 28px);
+    gap: 14px;
+    padding: 22px 14px;
+  }
+
+  .cover-badges {
+    gap: 6px;
+  }
+
+  .cover-badge {
+    padding: 5px 7px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .cover-title {
+    font-size: clamp(42px, 14vw, 64px);
+  }
+
+  .cover-subtitle {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  .cover-stats {
+    gap: 6px;
+  }
+
+  .cover-stats > div {
+    padding: 8px 7px;
+  }
+
+  .cover-stats strong {
+    font-size: 13px;
+  }
+
+  .cover-controls {
+    gap: 6px;
+  }
+
+  .cover-warning {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+
+  .cover-start-button {
+    width: min(92vw, 330px);
+    padding: 13px 20px;
+    font-size: 18px;
+  }
+
+  .cover-icon-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cover-leader-button {
+    min-height: 48px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
 }

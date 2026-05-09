@@ -1,11 +1,12 @@
 ﻿import { motion, AnimatePresence } from 'motion/react';
 import { useGameStore } from '../store/useGameStore';
 import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer, Crown, Sparkles, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function UI() {
   const { gameState, setGameState, score, highScore, coins, elapsedTime, resetRunProgress, getSpeed, getLevel, setPlayerLane } = useGameStore();
   const [showShop, setShowShop] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   const startRun = () => {
     resetRunProgress();
@@ -13,8 +14,35 @@ export default function UI() {
     setGameState('PLAYING');
   };
 
+  const shiftLane = (direction: -1 | 1) => {
+    const lane = useGameStore.getState().playerLane;
+    setPlayerLane(Math.max(-1, Math.min(1, lane + direction)));
+  };
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (gameState !== 'PLAYING') return;
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (gameState !== 'PLAYING' || touchStartX.current === null) return;
+
+    const endX = event.changedTouches[0]?.clientX;
+    if (endX === undefined) return;
+
+    const deltaX = endX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(deltaX) < 32) return;
+    shiftLane(deltaX > 0 ? 1 : -1);
+  };
+
   return (
-    <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center font-mono ui-container shadow-none ui-vignette">
+    <div
+      className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center font-mono ui-container shadow-none ui-vignette"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {gameState === 'START' && (
         <div className="absolute top-8 left-8 pointer-events-none flex items-center gap-2 text-yellow-200 text-sm sm:text-base font-bold tracking-[0.18em] hud-panel">
           <Crown size={18} /> HIGH SCORE {Math.floor(highScore)}
@@ -40,7 +68,7 @@ export default function UI() {
 
       {(gameState === 'PLAYING' || gameState === 'PAUSED') && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs sm:text-sm text-white/60 tracking-[0.18em] pointer-events-none">
-          SPACE PAUSE / ARROWS SHIFT LANES
+          SPACE PAUSE / ARROWS SHIFT LANES / SWIPE ON MOBILE
         </div>
       )}
 

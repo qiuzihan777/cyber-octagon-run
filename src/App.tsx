@@ -6,11 +6,12 @@ import { useAudio } from './hooks/useAudio';
 
 export default function App() {
   useAudio();
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
   return (
     <div className="relative w-full h-screen bg-[#02030a]">
       <Canvas
-        dpr={[1, 1.35]}
+        dpr={isTouchDevice ? [1, 1.1] : [1, 1.35]}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: [0, 3.2, 8], fov: 58 }}
       >
