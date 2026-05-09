@@ -41,9 +41,18 @@ export default function UI() {
   return (
     <div
       className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center font-mono ui-container shadow-none ui-vignette"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
+      {gameState === 'PLAYING' && (
+        <div
+          className="mobile-swipe-layer"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={() => {
+            touchStartX.current = null;
+          }}
+        />
+      )}
+
       {gameState === 'START' && (
         <div className="absolute top-8 left-8 pointer-events-none flex items-center gap-2 text-yellow-200 text-sm sm:text-base font-bold tracking-[0.18em] hud-panel">
           <Crown size={18} /> HIGH SCORE {Math.floor(highScore)}

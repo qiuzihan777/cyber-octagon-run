@@ -364,6 +364,16 @@ body {
     0 0 52px rgba(236, 72, 153, 0.28);
 }
 
+.mobile-swipe-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: auto;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  background: transparent;
+}
+
 @media (max-width: 640px) {
   .hud-panel {
     top: 14px !important;
