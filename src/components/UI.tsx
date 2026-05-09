@@ -4,8 +4,9 @@ import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer, Crown, Sparkles, Zap }
 import { useRef, useState } from 'react';
 
 export default function UI() {
-  const { gameState, setGameState, score, highScore, coins, elapsedTime, resetRunProgress, getSpeed, getLevel, setPlayerLane } = useGameStore();
+  const { gameState, setGameState, score, highScore, scoreHistory, coins, elapsedTime, resetRunProgress, getSpeed, getLevel, setPlayerLane } = useGameStore();
   const [showShop, setShowShop] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const startRun = () => {
@@ -141,7 +142,7 @@ export default function UI() {
               >
                 <ShoppingCart size={24} />
               </button>
-              <button className="cover-leader-button">
+              <button className="cover-leader-button" onClick={() => setShowLeaderboard(true)}>
                 <Trophy size={20} /> LEADERBOARD
               </button>
             </div>
@@ -199,6 +200,43 @@ export default function UI() {
       </AnimatePresence>
 
       <AnimatePresence>
+        {showLeaderboard && (
+          <motion.div
+            key="leaderboard-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 pointer-events-auto p-5"
+          >
+            <div className="leaderboard-panel">
+              <button
+                onClick={() => setShowLeaderboard(false)}
+                className="absolute top-4 right-4 text-cyan-300 hover:text-white"
+              >
+                [ CLOSE ]
+              </button>
+              <div className="flex items-center justify-center gap-3 text-yellow-200 text-3xl font-black tracking-[0.16em] mb-2">
+                <Trophy size={30} /> LEADERBOARD
+              </div>
+              <div className="text-white/55 text-xs tracking-[0.22em] mb-7">LOCAL SCORE RECORDS</div>
+
+              {scoreHistory.length > 0 ? (
+                <div className="leaderboard-list">
+                  {scoreHistory.map((record, index) => (
+                    <div key={`${record.playedAt}-${index}`} className="leaderboard-row">
+                      <div className="leaderboard-rank">#{index + 1}</div>
+                      <div className="leaderboard-score">{record.score}</div>
+                      <div className="leaderboard-meta">LV {record.level} / {record.elapsedTime}S</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="leaderboard-empty">NO RUNS RECORDED YET</div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
         {showShop && (
           <motion.div
             key="shop-modal"
