@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+.env
+.env.*
+*.log
+preview.out.txt
+preview.err.txt
+
