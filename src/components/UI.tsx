@@ -1,6 +1,6 @@
 ﻿import { motion, AnimatePresence } from 'motion/react';
 import { useGameStore } from '../store/useGameStore';
-import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer, Crown } from 'lucide-react';
+import { Trophy, Play, ShoppingCart, Pause, Gauge, Timer, Crown, Sparkles, Zap } from 'lucide-react';
 import { useState } from 'react';
 
 export default function UI() {
@@ -51,46 +51,69 @@ export default function UI() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="pointer-events-auto flex flex-col items-center gap-6 sm:gap-8 px-5 py-7 text-center start-panel"
+            className="pointer-events-auto flex flex-col items-center gap-5 sm:gap-7 px-5 py-7 text-center start-panel cover-panel"
           >
-            <div className="text-xs sm:text-sm font-bold tracking-[0.45em] text-fuchsia-200/80 uppercase">
-              Neon velocity protocol
+            <div className="cover-badges">
+              <span className="cover-badge cover-badge-cyan"><Sparkles size={14} /> NIGHT CITY</span>
+              <span className="cover-badge cover-badge-pink">LEVEL SHIFT</span>
+              <span className="cover-badge cover-badge-lime"><Zap size={14} /> 60 FPS MODE</span>
             </div>
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black italic tracking-tighter text-white title-glow uppercase">
-              CYBER <span className="text-cyan-300">OCTAGON</span>
-            </h1>
 
-            <div className="flex flex-col items-center gap-3 text-gray-400 mb-2">
+            <div className="cover-title-wrap">
+              <div className="text-xs sm:text-sm font-bold tracking-[0.45em] text-fuchsia-200/80 uppercase">
+                Neon velocity protocol
+              </div>
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-black italic tracking-tighter text-white title-glow cover-title uppercase">
+                CYBER <span>OCTAGON</span>
+              </h1>
+              <div className="cover-subtitle">RUN THE RAINBOW GRID</div>
+            </div>
+
+            <div className="cover-stats">
+              <div>
+                <span>BEST</span>
+                <strong>{Math.floor(highScore)}</strong>
+              </div>
+              <div>
+                <span>MODE</span>
+                <strong>ARCADE</strong>
+              </div>
+              <div>
+                <span>THREAT</span>
+                <strong>RISING</strong>
+              </div>
+            </div>
+
+            <div className="cover-controls">
               <div className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-gray-900 border border-gray-700 text-cyan-400 rounded">LEFT</kbd>
-                <kbd className="px-2 py-1 bg-gray-900 border border-gray-700 text-cyan-400 rounded">RIGHT</kbd>
+                <kbd>LEFT</kbd>
+                <kbd>RIGHT</kbd>
                 <span>SHIFT LANES</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-gray-900 border border-gray-700 text-fuchsia-300 rounded">SPACE</kbd>
+                <kbd>SPACE</kbd>
                 <span>PAUSE</span>
               </div>
-              <div className="text-xs opacity-60 uppercase tracking-[0.2em]">Faster speed, tighter gates, no mercy</div>
+              <div className="cover-warning">Faster speed, tighter gates, no mercy</div>
             </div>
 
             <button
               onClick={startRun}
-              className="group relative px-12 py-4 bg-transparent border-2 border-cyan-300 text-cyan-200 text-2xl font-bold overflow-hidden transition-all hover:bg-cyan-300 hover:text-black hover:shadow-[0_0_36px_rgba(34,211,238,0.8)]"
+              className="group cover-start-button"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Play size={24} fill="currentColor" /> START MISSION
               </span>
-              <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300 bg-cyan-400" />
             </button>
 
-            <div className="flex gap-4">
+            <div className="cover-secondary-actions">
               <button
                 onClick={() => setShowShop(true)}
-                className="p-4 border border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white transition-colors"
+                className="cover-icon-button"
               >
                 <ShoppingCart size={24} />
               </button>
-              <button className="p-4 border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white transition-colors text-lg flex items-center gap-2 font-bold px-6">
+              <button className="cover-leader-button">
                 <Trophy size={20} /> LEADERBOARD
               </button>
             </div>

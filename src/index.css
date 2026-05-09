@@ -83,6 +83,207 @@ body {
   max-width: min(94vw, 900px);
 }
 
+.cover-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(34, 211, 238, 0.55);
+  background:
+    linear-gradient(135deg, rgba(4, 10, 28, 0.72), rgba(18, 6, 30, 0.76)),
+    radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.24), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(255, 43, 214, 0.22), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(250, 204, 21, 0.14), transparent 38%);
+  box-shadow:
+    0 0 46px rgba(34, 211, 238, 0.24),
+    0 0 70px rgba(255, 43, 214, 0.14),
+    inset 0 0 42px rgba(57, 255, 20, 0.08);
+}
+
+.cover-panel::before,
+.cover-panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.cover-panel::before {
+  inset: 10px;
+  border: 1px solid rgba(250, 204, 21, 0.26);
+  box-shadow: inset 0 0 22px rgba(34, 211, 238, 0.13);
+}
+
+.cover-panel::after {
+  width: 160%;
+  height: 2px;
+  left: -30%;
+  top: 18%;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.45), rgba(255, 43, 214, 0.5), transparent);
+}
+
+.cover-badges,
+.cover-secondary-actions,
+.cover-controls,
+.cover-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-badges {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cover-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid currentColor;
+  background: rgba(2, 3, 10, 0.58);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 16px currentColor;
+}
+
+.cover-badge-cyan { color: #67e8f9; }
+.cover-badge-pink { color: #f0abfc; }
+.cover-badge-lime { color: #bef264; }
+
+.cover-title-wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.cover-title {
+  line-height: 0.88;
+}
+
+.cover-title span {
+  color: transparent;
+  background: linear-gradient(90deg, #67e8f9, #a78bfa, #f0abfc, #fde047, #86efac);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.cover-subtitle {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.34em;
+}
+
+.cover-stats {
+  width: min(100%, 620px);
+  gap: 8px;
+}
+
+.cover-stats > div {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+}
+
+.cover-stats span,
+.cover-controls span {
+  display: block;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.cover-stats strong {
+  display: block;
+  margin-top: 3px;
+  color: #fef08a;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.cover-controls {
+  flex-direction: column;
+  gap: 9px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.cover-controls kbd {
+  padding: 5px 8px;
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  background: rgba(2, 6, 23, 0.82);
+  color: #67e8f9;
+  font-weight: 900;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.24);
+}
+
+.cover-warning {
+  color: rgba(250, 204, 21, 0.66);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.cover-start-button {
+  position: relative;
+  overflow: hidden;
+  padding: 16px 52px;
+  border: 2px solid #67e8f9;
+  color: #020617;
+  background: linear-gradient(90deg, #67e8f9, #a78bfa, #f0abfc, #fde047);
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow:
+    0 0 28px rgba(34, 211, 238, 0.42),
+    0 0 46px rgba(255, 43, 214, 0.24);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.cover-start-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 36px rgba(34, 211, 238, 0.62),
+    0 0 62px rgba(255, 43, 214, 0.34);
+}
+
+.cover-secondary-actions {
+  gap: 12px;
+}
+
+.cover-icon-button,
+.cover-leader-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(240, 171, 252, 0.75);
+  background: rgba(2, 3, 10, 0.45);
+  color: #f0abfc;
+  font-weight: 900;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.cover-icon-button {
+  width: 56px;
+  height: 56px;
+}
+
+.cover-leader-button {
+  min-height: 56px;
+  padding: 0 22px;
+  color: #67e8f9;
+  border-color: rgba(103, 232, 249, 0.75);
+}
+
+.cover-icon-button:hover,
+.cover-leader-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border-color: white;
+}
+
 .hud-panel {
   padding: 14px 18px;
   border-color: rgba(34, 211, 238, 0.3);
