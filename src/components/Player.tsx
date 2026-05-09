@@ -44,14 +44,14 @@ export default function Player() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [gameState, playerLane, setPlayerLane, togglePause]);
 
-  // Reset player when game restarts
+  // Reset player on the menu or before a fresh run, but keep the impact position on game over.
   useEffect(() => {
-    if (gameState === 'START' || gameState === 'GAME_OVER') {
+    if (gameState === 'START') {
         setPlayerLane(0);
         setPlayerX(0);
         if (meshRef.current) meshRef.current.position.set(0, 0.5, 0);
+        resetRunProgress();
     }
-    if (gameState === 'START') resetRunProgress();
   }, [gameState, setPlayerLane, setPlayerX, resetRunProgress]);
 
   return (
