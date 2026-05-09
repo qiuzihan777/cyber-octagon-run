@@ -53,6 +53,16 @@ export default function UI() {
         />
       )}
 
+      {(gameState === 'PLAYING' || gameState === 'PAUSED') && (
+        <button
+          aria-label={gameState === 'PAUSED' ? 'Resume' : 'Pause'}
+          className="mobile-pause-button"
+          onClick={() => setGameState(gameState === 'PAUSED' ? 'PLAYING' : 'PAUSED')}
+        >
+          {gameState === 'PAUSED' ? 'RESUME' : 'PAUSE'}
+        </button>
+      )}
+
       {gameState === 'START' && (
         <div className="absolute top-8 left-8 pointer-events-none flex items-center gap-2 text-yellow-200 text-sm sm:text-base font-bold tracking-[0.18em] hud-panel">
           <Crown size={18} /> HIGH SCORE {Math.floor(highScore)}

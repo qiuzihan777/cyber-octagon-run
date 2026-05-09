@@ -374,6 +374,35 @@ body {
   background: transparent;
 }
 
+.mobile-pause-button {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .mobile-pause-button {
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 8;
+    pointer-events: auto;
+    min-width: 78px;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid rgba(250, 204, 21, 0.72);
+    background: rgba(2, 6, 23, 0.72);
+    color: #fef08a;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    box-shadow:
+      0 0 18px rgba(250, 204, 21, 0.22),
+      inset 0 0 14px rgba(250, 204, 21, 0.08);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
 @media (max-width: 640px) {
   .hud-panel {
     top: 14px !important;
