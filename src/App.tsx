@@ -16,7 +16,7 @@ export default function App() {
         camera={{ position: [0, 3.2, 8], fov: 58 }}
       >
         <color attach="background" args={['#02030a']} />
-        <fog attach="fog" args={['#09051a', 6, 34]} />
+        <fog attach="fog" args={['#09051a', 8, 48]} />
         
         <Suspense fallback={null}>
           <Game />

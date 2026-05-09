@@ -1,6 +1,7 @@
 import Player from './Player';
 import Track from './Track';
 import Obstacles from './Obstacles';
+import Cityscape from './Cityscape';
 import { Stars } from '@react-three/drei';
 
 export default function Game() {
@@ -26,6 +27,7 @@ export default function Game() {
       
       <Player />
       <Track />
+      <Cityscape />
       <Obstacles />
     </>
   );
