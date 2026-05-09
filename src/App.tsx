@@ -10,9 +10,8 @@ export default function App() {
   return (
     <div className="relative w-full h-screen bg-[#02030a]">
       <Canvas
-        shadows
-        dpr={[1, 1.75]}
-        gl={{ antialias: true, powerPreference: 'high-performance' }}
+        dpr={[1, 1.35]}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: [0, 3.2, 8], fov: 58 }}
       >
         <color attach="background" args={['#02030a']} />

@@ -25,10 +25,10 @@ export default function Track() {
     <group ref={groupRef}>
       <Plane args={[10, 100]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -40]}>
         <MeshReflectorMaterial
-          blur={[260, 80]}
-          resolution={1024}
-          mixBlur={0.9}
-          mixStrength={30}
+          blur={[180, 60]}
+          resolution={512}
+          mixBlur={0.75}
+          mixStrength={22}
           roughness={1}
           depthScale={1.2}
           minDepthThreshold={0.4}
@@ -79,7 +79,7 @@ export default function Track() {
         <meshStandardMaterial color="#ff7a00" emissive="#ff7a00" emissiveIntensity={6.5} />
       </Plane>
 
-      {Array.from({ length: 18 }).map((_, index) => {
+      {Array.from({ length: 10 }).map((_, index) => {
         const color = ringColors[index % ringColors.length];
 
         return (

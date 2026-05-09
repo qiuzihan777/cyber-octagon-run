@@ -1,10 +1,10 @@
-import { useMemo, useRef } from 'react';
+﻿import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGameStore } from '../store/useGameStore';
 
 const cityColors = ['#00e5ff', '#ff2bd6', '#39ff14', '#facc15', '#8b5cf6', '#ff7a00', '#ff1744'];
-const signTexts = ['RUN', 'NEON', 'BYTE', '夜市', '404', 'SYNC', '電脳', 'FOOD', 'HUB', '光'];
+const signTexts = ['RUN', 'NEON', 'BYTE', 'NITE', '404', 'SYNC', 'FOOD', 'HUB'];
 
 type Building = {
   id: string;
@@ -33,7 +33,7 @@ type Sign = {
 const createBuildings = () => {
   const buildings: Building[] = [];
 
-  for (let i = 0; i < 36; i++) {
+  for (let i = 0; i < 22; i++) {
     [-1, 1].forEach((side) => {
       const layer = i % 3;
       const width = 1.35 + ((i + layer) % 4) * 0.34;
@@ -62,7 +62,7 @@ const createSigns = (buildings: Building[]) => {
   const signs: Sign[] = [];
 
   buildings.forEach((building, index) => {
-    const count = index % 3 === 0 ? 3 : 2;
+    const count = index % 4 === 0 ? 2 : 1;
 
     for (let i = 0; i < count; i++) {
       const vertical = (index + i) % 2 === 0;
@@ -120,7 +120,7 @@ export default function Cityscape() {
 
       {buildings.map((building, index) => (
         <group key={building.id} position={[building.x, building.height / 2 - 0.02, building.z]}>
-          <mesh castShadow receiveShadow>
+          <mesh>
             <boxGeometry args={[building.width, building.height, building.depth]} />
             <meshStandardMaterial
               color={index % 2 === 0 ? '#07111f' : '#0b1022'}
@@ -131,7 +131,7 @@ export default function Cityscape() {
             />
           </mesh>
 
-          {Array.from({ length: Math.min(10, Math.floor(building.height * 1.25)) }).map((_, row) => (
+          {Array.from({ length: Math.min(6, Math.floor(building.height * 0.8)) }).map((_, row) => (
             <mesh
               key={`window-${row}`}
               position={[
@@ -184,8 +184,8 @@ export default function Cityscape() {
         </group>
       ))}
 
-      {Array.from({ length: 20 }).map((_, index) => {
-        const z = -index * 8 - 4;
+      {Array.from({ length: 12 }).map((_, index) => {
+        const z = -index * 12 - 4;
         const color = cityColors[index % cityColors.length];
 
         return (
@@ -200,14 +200,13 @@ export default function Cityscape() {
                   <sphereGeometry args={[0.16, 12, 12]} />
                   <meshStandardMaterial color={color} emissive={color} emissiveIntensity={5.2} />
                 </mesh>
-                <pointLight color={color} intensity={0.62} distance={4.8} />
               </group>
             ))}
           </group>
         );
       })}
 
-      {Array.from({ length: 9 }).map((_, index) => (
+      {Array.from({ length: 6 }).map((_, index) => (
         <group key={`wire-${index}`} position={[0, 4.4 + (index % 3) * 0.35, -10 - index * 11]}>
           <mesh rotation={[0, 0, 0.04 * (index % 2 === 0 ? 1 : -1)]}>
             <boxGeometry args={[11.4, 0.025, 0.025]} />
@@ -226,4 +225,5 @@ export default function Cityscape() {
     </group>
   );
 }
+
 
