@@ -78,6 +78,21 @@ export default function Track() {
       <Plane args={[1, 100]} rotation={[0, Math.PI / 2, 0]} position={[5, 0.5, -40]}>
         <meshStandardMaterial color="#ff7a00" emissive="#ff7a00" emissiveIntensity={6.5} />
       </Plane>
+
+      {Array.from({ length: 18 }).map((_, index) => {
+        const color = ringColors[index % ringColors.length];
+
+        return (
+          <group key={`curb-${index}`} position={[0, 0.08, -6 - index * 5.6]}>
+            <Plane args={[1.2, 0.08]} rotation={[-Math.PI / 2, 0, 0]} position={[-5.55, 0, 0]}>
+              <meshStandardMaterial color={color} emissive={color} emissiveIntensity={4.8} />
+            </Plane>
+            <Plane args={[1.2, 0.08]} rotation={[-Math.PI / 2, 0, 0]} position={[5.55, 0, 0]}>
+              <meshStandardMaterial color={ringColors[(index + 3) % ringColors.length]} emissive={ringColors[(index + 3) % ringColors.length]} emissiveIntensity={4.8} />
+            </Plane>
+          </group>
+        );
+      })}
     </group>
   );
 }
